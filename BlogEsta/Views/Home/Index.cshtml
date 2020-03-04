@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BlogViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<br />
+<a class="offset-10 btn btn-info" asp-controller="Home" asp-action="Postar">Nova Postagem</a>
+
+<br />
+@if (Model.Count() == 0)
+{
+    <span class="alert alert-danger col-md-12">Não há postagens no momento!</span>
+}
+else
+{
+
+    @foreach (var item in Model)
+    {
+        if (item.Ativo == false)
+        {
+
+        }
+        else
+        {
+            <div class=" col-md-12">
+                <hr />
+                <div>
+                    <h4 class="control-label">
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </h4>
+                    @Html.DisplayFor(modelItem => item.Url)
+                    <label class="control-label float-right">
+                        <div style="margin-top: -47px;">
+                            @Html.ActionLink("Editar", "Editar", new { id = item.Id })
+                        </div>
+                    </label>
+                </div>
+                <br />
+                <br />
+                <div class="col-md-12" style="border: 1px solid #454446; border-radius: 8px; margin-bottom:3px;  min-height:100px;" readonly>       
+                    @Html.Raw(item.Texto)
+                </div>
+                <label class="control-label offset-1 col-md-4">
+                    <span><strong>Autor:</strong></span>
+                    @Html.DisplayFor(modelItem => item.Autor)
+                    &nbsp;
+                    <span><strong>Data:</strong></span>
+                    @Html.DisplayFor(modelItem => item.DateCriacao)
+                </label>
+                <label class="control-label float-right">
+                    <div class="btn btn-dark">
+                        @Html.ActionLink("Remover", "Remover", new { id = item.Id })
+                    </div>                 
+                </label>
+            </div>
+        }
+    }
+}

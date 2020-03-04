@@ -1,0 +1,69 @@
+﻿@model BlogEsta.Models.BlogViewModel
+
+@{
+    ViewData["Title"] = "Postar";
+    Layout = "_Layout";
+    var erro = ViewBag.Erro;
+}
+
+<h1>Criar Postagem</h1>
+<hr />
+
+<div class="row">
+    <div class="offset-2 col-md-8">
+        <form asp-action="Postar">
+            @Html.HiddenFor(model => model.Ativo)
+            @Html.HiddenFor(model => model.Id)
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Titulo" class="control-label">Titulo</label>
+                <input asp-for="Titulo" class="form-control" id="Titulo" />
+                <span asp-validation-for="Titulo" class="text-danger"></span>
+            </div>
+            @if (erro != null)
+            {<div class=" form-group">
+                    <span class="alert alert-danger col-md-8">Este Titulo já existe!</span>
+                    <br />
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Url" class="control-label">URL</label>
+                <input asp-for="Url" class="form-control" id="Url" readonly />
+                <span asp-validation-for="Url" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Autor" class="control-label">Autor</label>
+                <input asp-for="Autor" class="form-control" />
+                <span asp-validation-for="Autor" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Texto" class="control-label">Texto</label>
+                <textarea maxlength="800" asp-for="Texto" class="form-control" id="editor" > </textarea>
+                <span asp-validation-for="Texto" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Postar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-info">Voltar</a>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            GenerateUrl();
+        });   
+    
+        ClassicEditor.create(document.querySelector("#editor"))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}

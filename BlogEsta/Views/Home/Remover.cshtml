@@ -1,0 +1,36 @@
+﻿@model BlogEsta.Models.BlogViewModel
+
+@{
+    ViewData["Title"] = "Remover";
+}
+<br />
+<h3 class="alert alert-danger">Are you sure you want to delete this?</h3>
+
+<div class=" col-md-12">
+    <hr />
+    <div>
+        @Html.HiddenFor(modelItem => modelItem.Id)
+        <h4 class="control-label">
+            @Html.DisplayFor(modelItem => modelItem.Titulo)
+        </h4>
+        @Html.DisplayFor(modelItem => modelItem.Url)
+    </div>
+    <br />
+    <br />
+    <div class="col-md-12" style="border: 1px solid #454446; border-radius: 8px; margin-bottom:3px;  min-height:100px;" readonly>
+        @Html.Raw(Model.Texto)
+    </div>
+    <label class="control-label offset-1 col-md-4">
+        <span><strong>Autor:</strong></span>
+        @Html.DisplayFor(modelItem => modelItem.Autor)
+        &nbsp;
+        <span><strong>Data:</strong></span>
+        @Html.DisplayFor(modelItem => modelItem.DateCriacao)
+    </label>
+    <br />
+    <br />
+    <form asp-action="Remover">
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-info">Cancelar</a>
+    </form>
+</div>
